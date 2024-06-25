@@ -1,4 +1,4 @@
-FROM node:18 as builder
+FROM --platform=linux/amd64 node:18 as builder
 
 WORKDIR /calcom
 
@@ -38,7 +38,7 @@ RUN yarn --cwd apps/web workspace @calcom/web run build
 #     yarn workspaces focus --all --production
 RUN rm -rf node_modules/.cache .yarn/cache apps/web/.next/cache
 
-FROM node:18 as builder-two
+FROM --platform=linux/amd64 node:18 as builder-two
 
 WORKDIR /calcom
 ARG NEXT_PUBLIC_WEBAPP_URL=http://localhost:3000
@@ -60,7 +60,7 @@ ENV NEXT_PUBLIC_WEBAPP_URL=$NEXT_PUBLIC_WEBAPP_URL \
 
 RUN scripts/replace-placeholder.sh http://NEXT_PUBLIC_WEBAPP_URL_PLACEHOLDER ${NEXT_PUBLIC_WEBAPP_URL}
 
-FROM node:18 as runner
+FROM --platform=linux/amd64 node:18 as runner
 
 
 WORKDIR /calcom
