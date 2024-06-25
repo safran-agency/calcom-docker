@@ -18,6 +18,7 @@ services:
       - stack
 
   calcom:
+    platform: linux/amd64
     image: tfnd/calcom
     build:
       context: .
